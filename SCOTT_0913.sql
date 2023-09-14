@@ -146,8 +146,3 @@ WHERE COMM IS NULL;  -- NULL 여부를 확인 할 때 사용하는 연산자
 SELECT *
 FROM EMP
 WHERE MGR IS NOT NULL;
-
-
-
-
-
