@@ -47,16 +47,90 @@ WHERE DEPTNO = 30
 AND ENAME LIKE '%E%'
 AND SAL NOT BETWEEN 1000 AND 2000;
 
-SELECT EMPNO, ENAME, SAL, DEPTNO 
-FROM EMP
-WHERE ENAME LIKE '%E%';
-
-
 -- 6. 추가 수당이 존재하지 않고 상급자가 있고, 직책이 MANAGER, CLERK인 사원 중
 -- 사원 이름의 두 번째 글자가 L이 아닌 사원의 정보를 출력
 SELECT * FROM EMP
 WHERE COMM IS NULL 
 AND MGR IS NOT NULL
-AND JOB IN('MAMAGER', 'CLERK')
+AND JOB IN ('MAMAGER', 'CLERK')
 AND ENAME NOT LIKE '_L%';
 
+-- 1. EMP 테이블에서 COMM의 값이 NULL이 아닌 정보 조회
+SELECT *
+FROM EMP
+WHERE COMM IS NOT NULL;
+
+-- 2. EMP 테이블에서 커미션을 받지 못하는 직원 조회
+SELECT *
+FROM EMP
+WHERE COMM = 0 
+OR COMM IS NULL;
+
+-- 3. EMP 테이블에서 관리자가 없는 직원 조회
+SELECT *
+FROM EMP
+WHERE MGR IS NULL;
+
+-- 4. EMP 테이블에서 급여를  많이 받는 순으로 조회
+SELECT *
+FROM EMP
+ORDER BY SAL DESC;
+
+-- 5. EMP 테이블에서 급여가 같을 경우 커미션을 내림차순으로 정렬 조회
+SELECT *
+FROM EMP
+ORDER BY SAL DESC, COMM DESC;
+
+-- 6. EMP 테이블에서 사원번호, 사원명, 직급, 입사일 조회 (단, 입사일을 오름차순 정렬)
+SELECT EMPNO, ENAME, JOB, HIREDATE
+FROM EMP
+ORDER BY HIREDATE;
+
+-- 7. EMP 테이블에서 사원번호, 사원명 조회(사원번호 기준 내림차순 정렬)
+SELECT EMPNO, ENAME
+FROM EMP
+ORDER BY EMPNO DESC;
+
+-- 8. EMP 테이블에서 사원번호, 입사일, 사원명, 급여 조회
+--      (부서번호가 빠른 순으로, 같은 부서번호 일 때는 최근 입사일 순으로 처리)
+SELECT EMPNO, HIREDATE, ENAME, SAL
+FROM EMP
+ORDER BY DEPTNO, HIREDATE DESC;
+
+-- 함수 --
+-- 오라클에서 함수는 내장 함수와 사용자 지정 함수로 나뉘어 짐
+-- 내장 함수는 단일형 함수와 다중형(집계)함수로 나누어 짐
+-- DUAL 테이블 : 오라클의 SYS 계정에서 제공하는 테이블로 함수나 계산식, 테이블의 참조없이 실행하기 위해 제공
+
+-- ABS : 절대값
+SELECT -10, ABS(-10) FROM DUAL;
+
+-- ROUND(숫자, 반올림 위치) : 반올림의 위치느 음수값도 가능
+SELECT ROUND(1234.5678) AS ROUND,
+            ROUND(1234.5678, 0 ) AS ROUND_0,
+            ROUND(1234.5678, 1 ) AS ROUND_1,
+            ROUND(1234.5678, 2 ) AS ROUND_2,
+            ROUND(1234.5678, -1 ) AS ROUND_MINUS1,
+            ROUND(1234.5678, -2 ) AS ROUND_MINUS2
+FROM DUAL;
+
+-- TRUNK : 버림
+SELECT TRUNC(1234.5678) AS TRUNC,
+            TRUNC(1234.5678, 0 ) AS TRUNC_0,
+            TRUNC(1234.5678, 1 ) AS TRUNC_1,
+            TRUNC(1234.5678, 2 ) AS TRUNC_2,
+            TRUNC(1234.5678, -1 ) AS TRUNC_MINUS1,
+            TRUNC(1234.5678, -2 ) AS TRUNC_MINUS2
+FROM DUAL;
+
+-- MOD : 나머지
+SELECT MOD(21, 5) FROM DUAL;
+
+-- CEIL : 소수점 이하 올림
+SELECT CEIL(12.000001) FROM DUAL;
+
+-- FLOOR : 소수점 이하 내림
+SELECT FLOOR(12.999999) FROM DUAL;
+
+-- POWER(A, B) :  A를 B만큼 제곱
+SELECT POWER(3, 4) FROM DUAL;
