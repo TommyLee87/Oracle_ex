@@ -18,10 +18,13 @@ FROM EMP;
 
 -- 실습문제 --
 -- 1. 사원이름이 S로 끝나는 사원 데이터 출력
-
+SELECT * FROM EMP
+WHERE ENAME LIKE '%S'
 
 -- 2. 30번 부서에서 근무하는 사원 중 직책이 SALESMAN인 사원의 
 -- 사원번호, 이름, 직책, 급여, 부서번호 출력
+SELECT EMPNO, ENAME, JOB, DEPTNO 
+FROM EMP
 
 
 -- 3, 20번, 30번 부서에 근무하는 사원 중 급여가 2000 초과인 사원의
@@ -37,3 +40,5 @@ FROM EMP;
 
 -- 6. 추가 수당이 존재하지 않고 상급자의 직책이 MANAGER, CLERK인 사원 중
 -- 사원 이름의 두 번째 글자가 L이 아닌 사원의 정보를 출력
+
+GFCXGGG
