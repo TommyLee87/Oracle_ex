@@ -135,7 +135,7 @@ FROM EMP;
 
 SELECT *
 FROM EMP
-WHERE COMM = NULL;  -- 연산 불가
+WHERE COMM = NULL;  -- 연산 불가!
 
 -- IS NULL
 SELECT *
